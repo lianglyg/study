@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>触屏事件</title>
+	<style>
+		body {
+			padding: 0;
+			margin: 0;
+			background-color: #F7F7F7;
+		}
+
+		.box {
+			width: 320px;
+			height: 400px;
+			margin: 10px auto;
+			background-color: pink;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="box"></div>
+
+	<script>
+		// 功能: 封装Tap手势(单击)
+		// 思路: 首先在触摸开始的时候获取起始坐标 在触摸结束的时候获取结束坐标 如果这两个坐标一致(差不多) 代表两个点位置一样 就是点击
+
+		// 步骤: 
+		// 1.获取(Tap)点击的元素
+		var box=document.querySelector(".box");
+		var startX,startY,endX,endY,startTime,endTime;
+		box.addEventListener('touchstart',function(e){
+			var touchs=e.targetTouches[0];
+			startX=touchs.clientX;
+			startY=touchs.clientY;
+			startTime=new Date().getTime();
+		});
+		box.addEventListener('touchend',function(e){
+			var touchs=e.changedTouches[0];
+			endX=touchs.clientX;
+			endY=touchs.clientY;
+			endTime=new Date().getTime();
+			if(Math.abs(startX-endX)<5 && Math.abs(startY-endY)<5 && (endTime-startTime)<300){
+				alert("Tap手势触发了!!!");
+			}
+		});
+		
+	</script>
+</body>
+
+</html>

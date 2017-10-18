@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>移动端事件类型</title>
+  <style>
+    * {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+      padding: 0;
+      margin: 0;
+      background-color: #F7F7F7;
+    }
+
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      background-color: #CCC;
+    }
+
+    li {
+      height: 30px;
+      line-height: 30px;
+      padding: 0 20px;
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+      margin: 10px auto;
+      background-color: pink;
+    }
+  </style>
+</head>
+
+<body>
+  <ul>
+    <li class="start"></li>
+    <li class="move"></li>
+    <li class="end"></li>
+  </ul>
+
+  <div class="box"></div>
+  <script>
+    // 获取box 且给box添加事件
+  var box=document.querySelector(".box");
+  //获取li
+  var start=document.querySelector(".start");
+  var move=document.querySelector(".move");
+  var end=document.querySelector(".end");
+  var colors = ['red', 'blue', 'green'];
+    var key = 0;
+
+  box.addEventListener("touchstart",function(){
+    start.innerHTML='start';
+    end.innerHTML='';
+  })
+  box.addEventListener("touchmove",function(){
+    move.innerHTML='moving';
+    start.innerHTML='';
+    move.style.backgroundColor=colors[++key % colors.length];
+  })
+  box.addEventListener("touchend",function(){
+    move.innerHTML='';
+    start.innerHTML='';
+    move.style.backgroundColor='';
+    end.innerHTML='end';
+  })
+  </script>
+</body>
+
+</html>

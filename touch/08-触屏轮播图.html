@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>轮播图</title>
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .carousel{
+            width: 100%;
+            overflow: hidden;
+        }
+        .carousel ul{
+            position: relative;
+            top: 0;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            overflow: hidden;
+        }
+        .carousel ul li{
+           float: left;
+           /* width: 100%; */
+        }
+        .carousel ul a{
+            display: block;
+            width: 100%;
+            
+        }
+        .carousel ul img{
+            width: 100%;
+            height: auto;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel">
+        <ul>
+            <li><a href="javascript:;"><img src="./image/0.png" alt=""></a></li>
+            <li><a href="javascript:;"><img src="./image/1.png"></a></li>
+            <li><a href="javascript:;"><img src="./image/2.png"></a></li>
+            <li><a href="javascript:;"><img src="./image/3.png"></a></li>
+            <li><a href="javascript:;"><img src="./image/4.png"></a></li>
+            <li><a href="javascript:;"><img src="./image/5.png"></a></li>
+            <li><a href="javascript:;"><img src="./image/6.png"></a></li>
+            <li><a href="javascript:;"><img src="./image/7.png"></a></li>
+        </ul>
+    </div>
+
+</body>
+<script>
+    //获取元素
+    var carousel=document.querySelector('.carousel');
+    var ul=carousel.querySelector('ul');
+    var firstLi=ul.querySelector('li');
+    var lastLi=ul.querySelector('li:last-child');
+    //定义变量
+    var aLi,carouselWidth,index=0,timer,startX,endX;
+
+    function init(){
+        //把第一个li添加到最后一个li最后面
+        ul.appendChild(firstLi.cloneNode(true));
+        //把最后一个li添加到第一个li前面
+        ul.insertBefore(lastLi.cloneNode(true),firstLi);
+        //获取所有的li
+        aLi=document.querySelectorAll('li');
+        //设置宽度(ul和li)
+        setWidth();
+        // 序号问题,显示0
+        index--;
+        ul.style.left=index * carouselWidth +"px";
+        
+        //轮播
+        autoplay();
+    }
+    //设置宽
+    function setWidth(){
+        carouselWidth=carousel.offsetWidth;
+        ul.style.width=carouselWidth * aLi.length +"px";
+        for(var i=0;i<aLi.length;i++){
+            aLi[i].style.width=carouselWidth +"px";
+        }
+    }
+    //轮播
+    function autoplay(){
+        timer=setInterval(function(){
+            index--;
+            ul.style.left=index * carouselWidth +'px';
+            ul.style.transition ='all 1s';
+        },1500)
+    }
+    //调整索引
+   ul.addEventListener("webkitTransitionEnd",function(){
+        if (index == 0) {
+            index = -8;
+        }
+        if(index==-9){
+            index=-1;
+        }
+        ul.style.left=index * carouselWidth +"px";
+        ul.style.transition='';
+   })
+
+   //手指控制轮播图
+   ul.addEventListener("touchstart",function(e){
+       clearInterval(timer);
+        var touches= e.targetTouches[0];
+        startX=touches.clientX;
+   })
+   ul.addEventListener("touchend",function(e){
+        autoplay();
+        var touches= e.changedTouches[0];
+        endX=touches.clientX;
+
+        endX > startX ? index++ : index--;
+        ul.style.left=index * carouselWidth +'px';
+        ul.style.transition ='all 1s';
+   })
+
+    init();
+</script>
+</html>

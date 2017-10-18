@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<!-- 不加veiwport的设置 会出现300ms延迟 加上 就没有 (在新版浏览器中) -->
+	<!-- <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"> -->
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+	<title>touch和click的触发顺序</title>
+	<style>
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+
+		.box {
+			width: 300px;
+			height: 300px;
+			background-color: purple;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="box"></div>
+	<script>
+		// 比较touch事件和click事件的执行顺序
+
+		// 步骤:
+
+		// 1.获取box元素
+		var box = document.querySelector(".box");
+
+
+		// 2.给box添加一个tap手势(单击)
+			// 2.声明全局变量
+			var startTx, startTy, endTx, endTy,startTime,endTime;
+		// 2.给box添加touchstart事件 以获取起始点的位置
+		box.addEventListener('touchstart', function (e) {
+			var touches = e.targetTouches[0];
+			// console.log(touches);
+			startTx = touches.clientX;
+			startTy = touches.clientY;
+
+			// 获取开始时间
+			startTime = new Date().getTime();
+			// console.log(startTime);
+		})
+		// 3.给box添加touchend事件 以获取结束点的位置
+		box.addEventListener("touchend", function (e) {
+			var touches = e.changedTouches[0];
+
+			endTx = touches.clientX;
+			endTy = touches.clientY;
+
+			// 获取结束时间
+			endTime = new Date().getTime();
+
+			// console.log(endTime-startTime);
+
+			// bug: 当手指从a移动到b 又移动到a 这时候 坐标没有发生变化 因此出现bug
+			// 解决: 使用时间 判断时间是否大于100 如果大于100 那么代表你肯定走了一段距离 
+			if(endTime-startTime > 500) {
+				// console.log(1);
+				return false;
+			}
+
+			// 4.要计算 X轴的差的绝对值 和Y的差的绝对值 是否小于 6   如果小于6 那么就触发tap手势
+			if (Math.abs(endTx - startTx) < 6 && Math.abs(endTy - startTy) < 6) {
+
+				// console.log("tap 手势触发了");
+
+				// 获取事件的时间  console.time(定时器的名字) 开始时间   console.timeEnd(定时器的名字) 结束时间
+
+				console.time('timer');
+
+			}
+		})
+
+		box.addEventListener('click',function(){
+			// console.log('click事件触发了');
+
+
+			console.timeEnd('timer');
+		})
+	</script>
+</body>
+
+</html>
