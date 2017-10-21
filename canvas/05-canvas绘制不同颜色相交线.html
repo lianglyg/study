@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas></canvas>
+</body>
+<script>
+    var canvas=document.querySelector("canvas");
+
+    canvas.width=500;
+    canvas.height=500;
+    canvas.style.border="1px solid red";
+    
+
+    var content=canvas.getContext("2d");
+    
+
+    content.lineWidth=6;
+    content.lineJoin="bevel";// 尖角变平
+
+
+    content.strokeStyle="red";
+
+    // content.beginPath();
+    content.moveTo(100,100);
+    content.lineTo(200,200);
+    content.lineTo(300,100);
+    content.stroke();
+
+    content.strokeStyle="blue";
+    content.lineJoin="miter";//默认效果
+    content.beginPath();
+    content.moveTo(100,150);
+    content.lineTo(200,250);
+    content.lineTo(300,150);
+    content.stroke();
+
+    content.strokeStyle="yellow";
+    content.lineJoin="round";
+    content.beginPath();
+    content.moveTo(100,200);
+    content.lineTo(200,300);
+    content.lineTo(300,200);
+
+    
+    content.stroke();
+
+
+</script>
+</html>

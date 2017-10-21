@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas></canvas>
+</body>
+<script>
+    var canvas=document.querySelector("canvas");
+    canvas.width=500;
+    canvas.height=500;
+    canvas.style.border="1px solid red";
+
+    var context=canvas.getContext("2d");
+
+    context.moveTo(50,50);
+    context.lineTo(200,50);
+    //设置线的宽度
+    context.lineWidth=10;
+    //设置线的颜色
+    context.strokeStyle="red";
+    // 设置线的末端类型(butt是默认的类型  round圆角  square小方块)
+    // context.lineCap="butt";
+    // context.lineCap="round";
+    context.lineCap="square";
+    
+    
+
+    context.stroke();
+</script>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Canvas绘制线段</title>
+</head>
+
+<body>
+    <canvas></canvas>
+</body>
+<script>
+    //1.获取canvas
+    var canvas = document.querySelector("canvas");
+    //设置canvas宽高
+    canvas.width = 500;
+    canvas.height = 500;
+    canvas.style.border = "1px solid red";
+    //2.准备画笔
+    var context = canvas.getContext("2d");
+    //3.设置起点
+    context.moveTo(0, 0);
+    //4.设置终点
+    context.lineTo(500, 500);
+
+    
+    context.moveTo(0,500);
+    context.lineTo(500,0);
+
+    context.moveTo(0,250);
+    context.lineTo(500,250);
+    //5.画图
+    context.stroke(); //描边
+
+
+
+</script>
+
+</html>

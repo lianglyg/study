@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas></canvas>
+</body>
+<script>
+    var canvas=document.querySelector("canvas");
+    canvas.width=600;
+    canvas.height=600;
+    canvas.style.border="1px solid red";
+
+    var context=canvas.getContext("2d");
+  
+    //获取小方块的宽
+    var fwidth=10;
+
+    //设置正方形中心的坐标
+
+    var data={
+        x:300,
+        y:300
+    }
+
+    context.moveTo(data.x-fwidth/2,data.y-fwidth/2);
+    context.lineTo(data.x+fwidth/2,data.y-fwidth/2);
+    context.lineTo(data.x+fwidth/2,data.y+fwidth/2);
+    context.lineTo(data.x-fwidth/2,data.y+fwidth/2);
+    context.fill();
+
+
+</script>
+</html>
